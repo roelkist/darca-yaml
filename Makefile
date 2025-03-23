@@ -28,20 +28,28 @@ export RUN_POETRY := $(POETRY_BIN)
 
 # === Virtual Environment ===
 venv:
+ifeq ($(CI),true)
+	@echo "📦 Skipping venv creation in CI..."
+else
 	@if [ ! -d "$(VENV_PATH)" ]; then \
 		echo "📦 Creating virtual environment in $(VENV_PATH)..."; \
 		python3 -m venv $(VENV_PATH); \
 		$(VENV_PATH)/bin/pip install --quiet --upgrade pip; \
 		echo "✅ Virtual environment created!"; \
 	fi
+endif
 
 # === Poetry Installation ===
 poetry: venv
+ifeq ($(CI),true)
+	@echo "🚀 Skipping Poetry install in CI (using system Poetry)..."
+else
 	@if [ ! -f "$(POETRY_BIN)" ]; then \
 		echo "🚀 Installing Poetry inside the virtual environment..."; \
 		$(VENV_PATH)/bin/pip install --quiet poetry; \
 		echo "✅ Poetry installed successfully in $(VENV_PATH)!"; \
 	fi
+endif
 
 # === Dependency Installation ===
 install: poetry
