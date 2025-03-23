@@ -1,66 +1,78 @@
-===============================
-Contributing to darca-file-utils
-===============================
+Contributing to darca-yaml
+==========================
 
-First of all, thank you for taking the time to contribute ❤️
+We're glad you're interested in contributing to **darca-yaml** 🧪📦  
+We follow a structured approach that ensures stability, consistency, and quality.
 
-We welcome contributions in many forms:
-
-- 🐛 Bug Reports
-- ✨ Feature Requests
-- 📥 Pull Requests (PRs)
+🚫 No forking is necessary — we prefer pull requests directly from branches in this repo.
 
 Getting Started
 ---------------
 
-1. Fork this repository
-2. Clone your fork locally
-3. Install dependencies and pre-commit hooks:
+1. **Clone this repository**:
+
+   .. code-block:: bash
+
+       git clone https://github.com/roelkist/darca-yaml
+       cd darca-yaml
+
+2. **Create a feature branch**:
+
+   .. code-block:: bash
+
+       git checkout -b feature/my-cool-update
+
+3. **Install all dependencies** (including dev + docs):
 
    .. code-block:: bash
 
        make install
-       make format  # Optional, but encouraged!
 
-4. Create your feature branch:
+4. **Write your changes**, ensuring:
+   - You follow the existing structure and formatting
+   - You include/update tests to maintain 100% test coverage
+   - You write/update docstrings and examples
+
+5. **Run all checks before committing**:
 
    .. code-block:: bash
 
-       git checkout -b feature/my-new-feature
+       make check
 
-Before Committing
------------------
+   This will run:
+   - Code formatters (Black + isort)
+   - Pre-commit validations
+   - Tests with coverage report
+   - Docs build
 
-Always run:
+6. **Commit and push your branch**:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-    make check
+       git push origin feature/my-cool-update
 
-This runs all the essential checks: formatting, linting, pre-commit, and full tests.
+7. **Open a Pull Request** to `main`.
 
-Submitting a Pull Request
--------------------------
+   - Add a clear description of what you changed and why
+   - Link related issues if applicable
+   - CI will automatically validate your PR
 
-- Ensure tests are passing (`make test`)
-- Add new tests for any new features or fixes
-- Include updates to the docs if needed (`make docs`)
-- Follow existing code style (`black`, `isort`)
+Templates
+---------
 
-Issue Templates & Feature Requests
-----------------------------------
+- ✅ Feature Requests: use the GitHub issue template
+- 🐞 Bug Reports: include reproduction steps and logs
+- 📚 Doc Improvements: feel free to submit directly via PR!
 
-We encourage you to use the issue templates when opening bugs or feature suggestions.
+CI/CD Notes
+-----------
 
-GitHub Actions
---------------
+- `make ci` is used in GitHub Actions to perform the full validation suite
+- All individual `make` targets can be run locally for quicker dev cycles
 
-Our CI workflow uses:
+License
+-------
 
-.. code-block:: bash
+By contributing, you agree that your contributions will be licensed under the same license as the project: **MIT**
 
-    make ci
-
-This is what runs in GitHub Actions and ensures consistent results across platforms.
-
-Thank you again for contributing!
+Thank you 🙌

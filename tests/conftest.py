@@ -9,7 +9,7 @@ def valid_yaml_data():
         "name": "darca-yaml",
         "version": "1.0.0",
         "enabled": True,
-        "items": ["a", "b", "c"]
+        "items": ["a", "b", "c"],
     }
 
 
@@ -19,5 +19,5 @@ def valid_yaml_schema():
         "name": {"type": "string", "required": True},
         "version": {"type": "string", "required": True},
         "enabled": {"type": "boolean", "required": True},
-        "items": {"type": "list", "schema": {"type": "string"}}
+        "items": {"type": "list", "schema": {"type": "string"}},
     }

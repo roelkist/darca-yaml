@@ -1,92 +1,81 @@
-==================================================
-darca-file-utils - Robust File & Directory Utils
-==================================================
+darca-yaml
+==========
 
-**darca-file-utils** is a Python utility library providing robust, reusable helpers for file and directory manipulation. It includes safe wrappers for common operations like reading, writing, copying, moving, renaming, and deleting files and directories, with rich exception handling and structured logging using the `darca` framework.
+A lightweight YAML utility library with validation support using Cerberus, designed for simplicity and composability in structured Python projects.
 
-Features
+.. image:: https://img.shields.io/pypi/v/darca-yaml
+    :target: https://pypi.org/project/darca-yaml/
+    :alt: PyPI
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+    :alt: Black code style
+
+Overview
 --------
 
-- ✅ File utilities: check, read, write, remove, rename, move, and copy
-- 📁 Directory utilities: create, list, move, rename, remove, and copy
-- 🚨 Structured error handling via `DarcaException`
-- 🧪 100% test coverage with `pytest`, `coverage`, and parallel test execution
-- 🧹 Integrated pre-commit hooks for consistent code quality
-- 📦 Isolated virtual environment and Poetry setup
+**darca-yaml** provides utilities for:
+
+- 📖 Loading and saving YAML files
+- ✅ Validating YAML content with Cerberus
+- 🔗 Integrated exception handling (`darca-exception`)
+- 📄 File handling via `darca-file-utils`
+- 🧪 100% test coverage with Pytest and CI integration
 
 Installation
 ------------
 
-Clone the repository and install dependencies using the Makefile:
-
 .. code-block:: bash
 
-    make install
+    pip install darca-yaml
 
-This will set up Poetry in an isolated virtual environment at ``/tmp/darca-log-venv``.
-
-Quickstart
-----------
+Usage
+-----
 
 .. code-block:: python
 
-    from darca_file_utils.file_utils import FileUtils
-    from darca_file_utils.directory_utils import DirectoryUtils
+    from darca_yaml.yaml_utils import YamlUtils
 
-    FileUtils.write_file("example.txt", "Hello world!")
-    print(FileUtils.read_file("example.txt"))
+    schema = {"name": {"type": "string"}, "enabled": {"type": "boolean"}}
 
-    DirectoryUtils.create_directory("test_folder")
+    data = YamlUtils.load_yaml_file("config.yaml")
+    YamlUtils.validate_yaml(data, schema)
+    YamlUtils.save_yaml_file("output.yaml", data, validate=True, schema=schema)
 
-Running Tests
--------------
+Development Setup
+-----------------
+
+Clone the repo and install dependencies:
 
 .. code-block:: bash
 
-    make test
+    git clone https://github.com/roelkist/darca-yaml
+    cd darca-yaml
+    make install
 
-- Generates full coverage reports in terminal, HTML, and JSON.
-- Creates a coverage badge (``coverage.svg``) saved to ``docs/source/_static``.
-
-Check Everything
-----------------
-
-Run all checks before committing:
+Run checks before committing:
 
 .. code-block:: bash
 
     make check
 
-This runs formatting, pre-commit, and tests in sequence.
-
-Documentation
--------------
-
-To build the Sphinx documentation locally:
+Run individual targets (faster iteration):
 
 .. code-block:: bash
 
+    make format
+    make test
+    make precommit
     make docs
 
-Output is generated in ``docs/build/html``.
+Contribution Guide
+------------------
 
-Continuous Integration
-----------------------
-
-GitHub Actions uses:
-
-.. code-block:: bash
-
-    make ci
-
-This target is optimized for CI/CD environments and runs pre-commit, tests, and docs builds.
+We welcome contributions via **pull requests** to `main`.  
+Please see the `CONTRIBUTING.rst` file for detailed instructions.
 
 License
 -------
 
-MIT License. See LICENSE for details.
+MIT
 
-Author
-------
-
-Roel Kist

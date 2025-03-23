@@ -74,7 +74,9 @@ class YamlUtils:
         return data or {}
 
     @staticmethod
-    def save_yaml_file(file_path: str, data: dict, validate: bool = False, schema: dict = None) -> bool:
+    def save_yaml_file(
+        file_path: str, data: dict, validate: bool = False, schema: dict = None
+    ) -> bool:
         """
         Save data to a YAML file, with optional validation.
 
@@ -82,13 +84,14 @@ class YamlUtils:
             file_path (str): Path to save YAML file.
             data (dict): Data to be saved.
             validate (bool): Whether to validate the data.
-            schema (dict): Schema used for validation (required if validate=True).
+            schema (dict): Schema used for validation
+                           (required if validate=True).
 
         Returns:
             bool: True if file saved successfully.
 
         Raises:
-            YamlUtilsException: On validation or save failure.
+            YamlUtilsException: On validation, serialization, or save failure.
         """
         if validate:
             logger.debug("Validation requested before saving YAML.")
@@ -103,7 +106,9 @@ class YamlUtils:
         try:
             logger.debug(f"Serializing data to YAML for file: {file_path}")
             yaml_content = yaml.dump(data, sort_keys=False)
-        except yaml.YAMLError as e:
+        except Exception as e:
+            # Catch all exceptions (not just yaml.YAMLError) to ensure robust
+            # error handling
             raise YamlUtilsException(
                 message="Failed to serialize data to YAML.",
                 error_code="YAML_SERIALIZE_ERROR",
