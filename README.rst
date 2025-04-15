@@ -3,13 +3,26 @@ darca-yaml
 
 A lightweight YAML utility library with validation support using Cerberus, designed for simplicity and composability in structured Python projects.
 
-.. image:: https://img.shields.io/pypi/v/darca-yaml
-    :target: https://pypi.org/project/darca-yaml/
-    :alt: PyPI
+|Build Status| |Deploy Status| |CodeCov| |Formatting| |License| |PyPi Version| |Docs|
 
-.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
-    :target: https://github.com/psf/black
-    :alt: Black code style
+.. |Build Status| image:: https://github.com/roelkist/darca-yaml/actions/workflows/ci.yml/badge.svg
+   :target: https://github.com/roelkist/darca-yaml/actions
+.. |Deploy Status| image:: https://github.com/roelkist/darca-yaml/actions/workflows/cd.yml/badge.svg
+   :target: https://github.com/roelkist/darca-yaml/actions
+.. |Codecov| image:: https://codecov.io/gh/roelkist/darca-yaml/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/roelkist/darca-yaml
+   :alt: Codecov
+.. |Formatting| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
+   :alt: Black code style
+.. |License| image:: https://img.shields.io/badge/license-MIT-blue.svg
+   :target: https://opensource.org/licenses/MIT
+.. |PyPi Version| image:: https://img.shields.io/pypi/v/darca-yaml
+   :target: https://pypi.org/project/darca-yaml/
+   :alt: PyPi
+.. |Docs| image:: https://img.shields.io/github/deployments/roelkist/darca-yaml/github-pages
+   :target: https://roelkist.github.io/darca-yaml/
+   :alt: GitHub Pages
 
 Overview
 --------
