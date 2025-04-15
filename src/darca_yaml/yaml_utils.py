@@ -85,7 +85,7 @@ class YamlUtils:
             data (dict or str): Data to be saved. If str, must be valid YAML.
             validate (bool): Whether to validate the data.
             schema (dict): Schema used for validation
-                           (required if validate=True).
+            (required if validate=True).
 
         Returns:
             bool: True if file saved successfully.
@@ -96,7 +96,9 @@ class YamlUtils:
         # If data is a string, try parsing it as YAML first
         if isinstance(data, str):
             try:
-                logger.debug("Data provided as string. Attempting to parse as YAML.")
+                logger.debug(
+                    "Data provided as string. Attempting to parse as YAML."
+                )
                 data = yaml.safe_load(data)
             except yaml.YAMLError as e:
                 raise YamlUtilsException(
@@ -105,7 +107,7 @@ class YamlUtils:
                     metadata={"file_path": file_path},
                     cause=e,
                 )
-            
+
         if validate:
             logger.debug("Validation requested before saving YAML.")
             if not schema:
@@ -145,7 +147,8 @@ class YamlUtils:
         Validate YAML content using Cerberus schema.
 
         Args:
-            data (dict or str): YAML data to validate. If str, must be valid YAML.
+            data (dict or str): YAML data to validate. If str, must
+            be valid YAML.
             schema (dict): Cerberus schema definition.
 
         Returns:
@@ -159,7 +162,9 @@ class YamlUtils:
         # If data is a string, try parsing it as YAML first
         if isinstance(data, str):
             try:
-                logger.debug("Data provided as string. Attempting to parse as YAML.")
+                logger.debug(
+                    "Data provided as string. Attempting to parse as YAML."
+                )
                 data = yaml.safe_load(data)
             except yaml.YAMLError as e:
                 raise YamlUtilsException(
@@ -168,7 +173,7 @@ class YamlUtils:
                     metadata={"input_type": "str"},
                     cause=e,
                 )
-        
+
         validator = Validator(schema)
         if not validator.validate(data):
             logger.error(f"YAML validation failed: {validator.errors}")
@@ -179,4 +184,3 @@ class YamlUtils:
             )
         logger.debug("YAML validation succeeded.")
         return True
-
