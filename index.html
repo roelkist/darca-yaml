@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to darca-embeddings’s documentation! &mdash; DARCA&#39;s YAML utility. 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage Guide" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            DARCA's YAML utility.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">DARCA's YAML utility.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Welcome to darca-embeddings’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-darca-embeddings-s-documentation">
+<h1>Welcome to darca-embeddings’s documentation!<a class="headerlink" href="#welcome-to-darca-embeddings-s-documentation" title="Link to this heading"></a></h1>
+<section id="project-overview">
+<h2>Project Overview<a class="headerlink" href="#project-overview" title="Link to this heading"></a></h2>
+</section>
+</section>
+<section id="darca-yaml">
+<h1>darca-yaml<a class="headerlink" href="#darca-yaml" title="Link to this heading"></a></h1>
+<p>A lightweight YAML utility library with validation support using Cerberus, designed for simplicity and composability in structured Python projects.</p>
+<p><a class="reference external" href="https://github.com/roelkist/darca-yaml/actions"><img alt="Build Status" src="https://github.com/roelkist/darca-yaml/actions/workflows/ci.yml/badge.svg" /></a> <a class="reference external" href="https://github.com/roelkist/darca-yaml/actions"><img alt="Deploy Status" src="https://github.com/roelkist/darca-yaml/actions/workflows/cd.yml/badge.svg" /></a> <a class="reference external" href="https://codecov.io/gh/roelkist/darca-yaml"><img alt="Codecov" src="https://codecov.io/gh/roelkist/darca-yaml/branch/main/graph/badge.svg" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="Black code style" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a> <a class="reference external" href="https://opensource.org/licenses/MIT"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a> <a class="reference external" href="https://pypi.org/project/darca-yaml/"><img alt="PyPi" src="https://img.shields.io/pypi/v/darca-yaml" /></a> <a class="reference external" href="https://roelkist.github.io/darca-yaml/"><img alt="GitHub Pages" src="https://img.shields.io/github/deployments/roelkist/darca-yaml/github-pages" /></a></p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p><strong>darca-yaml</strong> provides utilities for:</p>
+<ul class="simple">
+<li><p>📖 Loading and saving YAML files</p></li>
+<li><p>✅ Validating YAML content with Cerberus</p></li>
+<li><p>🔗 Integrated exception handling (<cite>darca-exception</cite>)</p></li>
+<li><p>📄 File handling via <cite>darca-file-utils</cite></p></li>
+<li><p>🧪 100% test coverage with Pytest and CI integration</p></li>
+</ul>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>darca-yaml
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">darca_yaml.yaml_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">YamlUtils</span>
+
+<span class="n">schema</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span> <span class="s2">&quot;enabled&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;boolean&quot;</span><span class="p">}}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">YamlUtils</span><span class="o">.</span><span class="n">load_yaml_file</span><span class="p">(</span><span class="s2">&quot;config.yaml&quot;</span><span class="p">)</span>
+<span class="n">YamlUtils</span><span class="o">.</span><span class="n">validate_yaml</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">YamlUtils</span><span class="o">.</span><span class="n">save_yaml_file</span><span class="p">(</span><span class="s2">&quot;output.yaml&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="development-setup">
+<h2>Development Setup<a class="headerlink" href="#development-setup" title="Link to this heading"></a></h2>
+<p>Clone the repo and install dependencies:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/roelkist/darca-yaml
+<span class="nb">cd</span><span class="w"> </span>darca-yaml
+make<span class="w"> </span>install
+</pre></div>
+</div>
+<p>Run checks before committing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check
+</pre></div>
+</div>
+<p>Run individual targets (faster iteration):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>format
+make<span class="w"> </span><span class="nb">test</span>
+make<span class="w"> </span>precommit
+make<span class="w"> </span>docs
+</pre></div>
+</div>
+</section>
+<section id="contribution-guide">
+<h2>Contribution Guide<a class="headerlink" href="#contribution-guide" title="Link to this heading"></a></h2>
+<p>We welcome contributions via <strong>pull requests</strong> to <cite>main</cite>.
+Please see the <cite>CONTRIBUTING.rst</cite> file for detailed instructions.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>MIT</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-loading-example">Basic Loading Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#saving-data-to-yaml">Saving Data to YAML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#validating-yaml-before-saving">Validating YAML Before Saving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#string-based-input">String-Based Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#error-handling">Error Handling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#darca_yaml.yaml_utils.YamlUtils"><code class="docutils literal notranslate"><span class="pre">YamlUtils</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#darca_yaml.yaml_utils.YamlUtilsException"><code class="docutils literal notranslate"><span class="pre">YamlUtilsException</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="community-contribution">
+<h2>Community &amp; Contribution<a class="headerlink" href="#community-contribution" title="Link to this heading"></a></h2>
+</section>
+</section>
+<section id="contributing-to-darca-yaml">
+<h1>Contributing to darca-yaml<a class="headerlink" href="#contributing-to-darca-yaml" title="Link to this heading"></a></h1>
+<p>We’re glad you’re interested in contributing to <strong>darca-yaml</strong> 🧪📦
+We follow a structured approach that ensures stability, consistency, and quality.</p>
+<section id="id1">
+<h2>Getting Started<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Clone this repository</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/roelkist/darca-yaml
+<span class="nb">cd</span><span class="w"> </span>darca-yaml
+</pre></div>
+</div>
+</li>
+<li><p><strong>Create a feature branch</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/my-cool-update
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install all dependencies</strong> (including dev + docs):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</li>
+<li><p><strong>Write your changes</strong>, ensuring:
+- You follow the existing structure and formatting
+- You include/update tests to maintain 100% test coverage
+- You write/update docstrings and examples</p></li>
+<li><p><strong>Run all checks before committing</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>check
+</pre></div>
+</div>
+<p>This will run:
+- Code formatters (Black + isort)
+- Pre-commit validations
+- Tests with coverage report
+- Docs build</p>
+</li>
+<li><p><strong>Commit and push your branch</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/my-cool-update
+</pre></div>
+</div>
+</li>
+<li><p><strong>Open a Pull Request</strong> to <cite>main</cite>.</p>
+<ul class="simple">
+<li><p>Add a clear description of what you changed and why</p></li>
+<li><p>Link related issues if applicable</p></li>
+<li><p>CI will automatically validate your PR</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>✅ Feature Requests: use the GitHub issue template</p></li>
+<li><p>🐞 Bug Reports: include reproduction steps and logs</p></li>
+<li><p>📚 Doc Improvements: feel free to submit directly via PR!</p></li>
+</ul>
+</section>
+<section id="ci-cd-notes">
+<h2>CI/CD Notes<a class="headerlink" href="#ci-cd-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><cite>make ci</cite> is used in GitHub Actions to perform the full validation suite</p></li>
+<li><p>All individual <cite>make</cite> targets can be run locally for quicker dev cycles</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>License<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>By contributing, you agree that your contributions will be licensed under the same license as the project: <strong>MIT</strong></p>
+<p>Thank you 🙌</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) 2025 darca-yaml Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

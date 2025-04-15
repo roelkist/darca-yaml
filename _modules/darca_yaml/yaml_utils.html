@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>darca_yaml.yaml_utils &mdash; DARCA&#39;s YAML utility. 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            DARCA's YAML utility.
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">DARCA's YAML utility.</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">darca_yaml.yaml_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for darca_yaml.yaml_utils</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">yaml_utils.py</span>
+
+<span class="sd">Utility module for loading, saving, and validating YAML files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cerberus</span><span class="w"> </span><span class="kn">import</span> <span class="n">Validator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">darca_exception.exception</span><span class="w"> </span><span class="kn">import</span> <span class="n">DarcaException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">darca_file_utils.file_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">FileUtils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">darca_log_facility.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">DarcaLogger</span>
+
+<span class="c1"># Logger setup</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">DarcaLogger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;yaml_utils&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="YamlUtilsException">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtilsException">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">YamlUtilsException</span><span class="p">(</span><span class="n">DarcaException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom exception for YAML utility errors.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="YamlUtilsException.__init__">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtilsException.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cause</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
+            <span class="n">error_code</span><span class="o">=</span><span class="n">error_code</span> <span class="ow">or</span> <span class="s2">&quot;YAML_UTILS_ERROR&quot;</span><span class="p">,</span>
+            <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+            <span class="n">cause</span><span class="o">=</span><span class="n">cause</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="YamlUtils">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtils">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">YamlUtils</span><span class="p">:</span>
+<div class="viewcode-block" id="YamlUtils.load_yaml_file">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtils.load_yaml_file">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">load_yaml_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load and parse a YAML file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path (str): Path to the YAML file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: Parsed YAML content.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            YamlUtilsException: On read or parse failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to read YAML file: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">FileUtils</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to read YAML file: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_FILE_READ_ERROR&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Parsing YAML content from: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to parse YAML content: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_PARSE_ERROR&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Invalid YAML structure (expected dict): </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_INVALID_STRUCTURE&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">))},</span>
+            <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;YAML successfully loaded from </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span> <span class="ow">or</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="YamlUtils.save_yaml_file">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtils.save_yaml_file">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_yaml_file</span><span class="p">(</span>
+        <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">validate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save data to a YAML file, with optional validation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            file_path (str): Path to save YAML file.</span>
+<span class="sd">            data (dict or str): Data to be saved. If str, must be valid YAML.</span>
+<span class="sd">            validate (bool): Whether to validate the data.</span>
+<span class="sd">            schema (dict): Schema used for validation</span>
+<span class="sd">            (required if validate=True).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if file saved successfully.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            YamlUtilsException: On validation, serialization, or save failure.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If data is a string, try parsing it as YAML first</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Data provided as string. Attempting to parse as YAML.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Failed to parse YAML string.&quot;</span><span class="p">,</span>
+                    <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_STRING_PARSE_ERROR&quot;</span><span class="p">,</span>
+                    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                    <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">validate</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Validation requested before saving YAML.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">schema</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Schema must be provided for YAML validation.&quot;</span><span class="p">,</span>
+                    <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_VALIDATION_SCHEMA_MISSING&quot;</span><span class="p">,</span>
+                    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                <span class="p">)</span>
+            <span class="n">YamlUtils</span><span class="o">.</span><span class="n">validate_yaml</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serializing data to YAML for file: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">yaml_content</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="c1"># Catch all exceptions (not just yaml.YAMLError) to ensure robust</span>
+            <span class="c1"># error handling</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Failed to serialize data to YAML.&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_SERIALIZE_ERROR&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">FileUtils</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">yaml_content</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Failed to write YAML file: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_FILE_WRITE_ERROR&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;file_path&quot;</span><span class="p">:</span> <span class="n">file_path</span><span class="p">},</span>
+                <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="YamlUtils.validate_yaml">
+<a class="viewcode-back" href="../../api.html#darca_yaml.yaml_utils.YamlUtils.validate_yaml">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validate_yaml</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validate YAML content using Cerberus schema.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict or str): YAML data to validate. If str, must</span>
+<span class="sd">            be valid YAML.</span>
+<span class="sd">            schema (dict): Cerberus schema definition.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if valid.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            YamlUtilsException: If validation fails.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Validating YAML data with schema.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># If data is a string, try parsing it as YAML first</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="s2">&quot;Data provided as string. Attempting to parse as YAML.&quot;</span>
+                <span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Failed to parse YAML string.&quot;</span><span class="p">,</span>
+                    <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_STRING_PARSE_ERROR&quot;</span><span class="p">,</span>
+                    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input_type&quot;</span><span class="p">:</span> <span class="s2">&quot;str&quot;</span><span class="p">},</span>
+                    <span class="n">cause</span><span class="o">=</span><span class="n">e</span><span class="p">,</span>
+                <span class="p">)</span>
+
+        <span class="n">validator</span> <span class="o">=</span> <span class="n">Validator</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">validator</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;YAML validation failed: </span><span class="si">{</span><span class="n">validator</span><span class="o">.</span><span class="n">errors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">YamlUtilsException</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;YAML validation failed.&quot;</span><span class="p">,</span>
+                <span class="n">error_code</span><span class="o">=</span><span class="s2">&quot;YAML_VALIDATION_ERROR&quot;</span><span class="p">,</span>
+                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;errors&quot;</span><span class="p">:</span> <span class="n">validator</span><span class="o">.</span><span class="n">errors</span><span class="p">},</span>
+            <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;YAML validation succeeded.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Copyright (c) 2025 darca-yaml Contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
