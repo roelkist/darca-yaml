@@ -75,14 +75,14 @@ class YamlUtils:
 
     @staticmethod
     def save_yaml_file(
-        file_path: str, data: dict, validate: bool = False, schema: dict = None
+        file_path: str, data, validate: bool = False, schema: dict = None
     ) -> bool:
         """
         Save data to a YAML file, with optional validation.
 
         Args:
             file_path (str): Path to save YAML file.
-            data (dict): Data to be saved.
+            data (dict or str): Data to be saved. If str, must be valid YAML.
             validate (bool): Whether to validate the data.
             schema (dict): Schema used for validation
                            (required if validate=True).
@@ -93,6 +93,19 @@ class YamlUtils:
         Raises:
             YamlUtilsException: On validation, serialization, or save failure.
         """
+        # If data is a string, try parsing it as YAML first
+        if isinstance(data, str):
+            try:
+                logger.debug("Data provided as string. Attempting to parse as YAML.")
+                data = yaml.safe_load(data)
+            except yaml.YAMLError as e:
+                raise YamlUtilsException(
+                    message="Failed to parse YAML string.",
+                    error_code="YAML_STRING_PARSE_ERROR",
+                    metadata={"file_path": file_path},
+                    cause=e,
+                )
+            
         if validate:
             logger.debug("Validation requested before saving YAML.")
             if not schema:
@@ -132,7 +145,7 @@ class YamlUtils:
         Validate YAML content using Cerberus schema.
 
         Args:
-            data (dict): YAML data to validate.
+            data (dict or str): YAML data to validate. If str, must be valid YAML.
             schema (dict): Cerberus schema definition.
 
         Returns:
@@ -142,6 +155,20 @@ class YamlUtils:
             YamlUtilsException: If validation fails.
         """
         logger.debug("Validating YAML data with schema.")
+
+        # If data is a string, try parsing it as YAML first
+        if isinstance(data, str):
+            try:
+                logger.debug("Data provided as string. Attempting to parse as YAML.")
+                data = yaml.safe_load(data)
+            except yaml.YAMLError as e:
+                raise YamlUtilsException(
+                    message="Failed to parse YAML string.",
+                    error_code="YAML_STRING_PARSE_ERROR",
+                    metadata={"input_type": "str"},
+                    cause=e,
+                )
+        
         validator = Validator(schema)
         if not validator.validate(data):
             logger.error(f"YAML validation failed: {validator.errors}")
@@ -152,3 +179,4 @@ class YamlUtils:
             )
         logger.debug("YAML validation succeeded.")
         return True
+

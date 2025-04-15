@@ -122,3 +122,30 @@ def test_save_yaml_file_write_failure(tmp_path, valid_yaml_data):
                 str(tmp_path / "fail.yaml"), valid_yaml_data
             )
     assert "YAML_FILE_WRITE_ERROR" in str(exc.value)
+
+def test_save_yaml_file_from_valid_yaml_string(tmp_path, valid_yaml_data):
+    yaml_string = yaml.dump(valid_yaml_data)
+    file_path = tmp_path / "from_string.yaml"
+    result = YamlUtils.save_yaml_file(str(file_path), yaml_string)
+    assert result
+    assert file_path.exists()
+
+def test_save_yaml_file_from_invalid_yaml_string(tmp_path):
+    invalid_yaml = "::bad: yaml::"
+    file_path = tmp_path / "invalid_string.yaml"
+    with pytest.raises(YamlUtilsException) as exc:
+        YamlUtils.save_yaml_file(str(file_path), invalid_yaml)
+    assert "YAML_STRING_PARSE_ERROR" in str(exc.value)
+
+def test_validate_yaml_from_valid_yaml_string(valid_yaml_data, valid_yaml_schema):
+    yaml_string = yaml.dump(valid_yaml_data)
+    assert YamlUtils.validate_yaml(yaml_string, valid_yaml_schema)
+
+def test_validate_yaml_parse_failure(valid_yaml_schema):
+    # This will raise a yaml.YAMLError due to incorrect indentation
+    invalid_yaml = "key:\n - bad_indent: true\n  another: value"
+    with pytest.raises(YamlUtilsException) as exc:
+        YamlUtils.validate_yaml(invalid_yaml, valid_yaml_schema)
+    assert "YAML_STRING_PARSE_ERROR" in str(exc.value)
+
+

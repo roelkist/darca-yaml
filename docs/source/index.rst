@@ -1,22 +1,24 @@
-.. toctree::
-   :maxdepth: 2
+.. darca-embeddingsndocumentation master file
 
+Welcome to darca-embeddings's documentation!
+================================================
 
+Project Overview
+----------------
 
 .. include:: ../../README.rst
-
-
-Documentation List
-==================
+   
+Getting Started
+---------------
 
 .. toctree::
-   :maxdepth: 4
-   :caption: Contents:
+   :maxdepth: 2
+   :caption: Contents
 
+   usage
+   api
 
-Indices and tables
-==================
+Community & Contribution
+------------------------
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. include:: ../../CONTRIBUTING.rst

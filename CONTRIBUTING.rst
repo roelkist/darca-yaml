@@ -4,8 +4,6 @@ Contributing to darca-yaml
 We're glad you're interested in contributing to **darca-yaml** 🧪📦  
 We follow a structured approach that ensures stability, consistency, and quality.
 
-🚫 No forking is necessary — we prefer pull requests directly from branches in this repo.
-
 Getting Started
 ---------------
 
